@@ -13,7 +13,7 @@ function Sidebar() {
      justify-between p-6 pt-28 text-white max-sm:hidden lg:w-[264px]' style={{backgroundColor: "#1C1F2E"}}>
         <div className='flex flex-col flex-1 gap-6'>
             {sidebarLinks.map((link) => {
-                const isActive = pathName === link.route || pathName.startsWith(link.route);
+                const isActive = pathName === link.route || pathName.startsWith(`${link.route}/`);
 
                 return (
                     <Link 
