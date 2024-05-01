@@ -19,9 +19,10 @@ function Sidebar() {
                     <Link 
                         href={link.route} 
                         key={link.label}
-                        className={cn('flex gap-4 items-center p-4 rounded-lg justify-start',
+                        className={cn('flex items-center p-4 rounded-lg justify-start',
                         {'bg-blue-1': isActive,}
                         )}
+                        style={{gap: "1rem",}}
                     >
                         <Image 
                             src={link.icon} 
