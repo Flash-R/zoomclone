@@ -3,10 +3,17 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import HomeCard from './HomeCard'
 import { useRouter } from 'next/navigation';
+import MeetingModal from './MeetingModal';
 
 function MeetingTypeList() {
     const router = useRouter();
-    const [MeetingState, setMeetingState] = useState<'isScheduleMetting' | 'isJoiningMetting' | 'isInstantMetting' | 'undefined'>()
+    const [MeetingState, setMeetingState] = useState<'isScheduleMetting' | 'isJoiningMetting' | 'isInstantMetting' | 'undefined'>();
+
+
+    // Model Functions 
+    const createMeeting = () =>{
+
+    }
     return (
         <section
             className='grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4'
@@ -38,6 +45,15 @@ function MeetingTypeList() {
             desc="Look through your recordings"
             handleClick={() => router.push('/recordings')}
             className='bg-yellow-1'
+        />
+
+        <MeetingModal
+            isOpen={MeetingState === 'isInstantMetting'}
+            onClose={() => setMeetingState('undefined')}
+            title='start an Instant Meeting'
+            className='text-center'
+            buttonText='Start Meeting'
+            handleClick={createMeeting}
         />
         </section>
     )
