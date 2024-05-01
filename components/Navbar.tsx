@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import MobileNav from './MobileNav'
+import { SignedIn, UserButton } from '@clerk/nextjs'
 
 function Navbar() {
   return (
@@ -9,11 +10,14 @@ function Navbar() {
       <Link href='/' className='flex items-centr gap-1'>
         <Image src='/icons/logo.svg' width={32} height={32} alt='logo' className='max-sm:size-10' />
         <p className='text[26px] font-extrabold text-white max-sm:hidden'>YM App</p>
-      </Link>	
+      </Link>
       <div className='flex-between gap-5'>
-          {/* clerk user management */}
-          <MobileNav/>
-        </div>
+        {/* clerk user management */}
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+        <MobileNav />
+      </div>
     </nav>
   )
 }
