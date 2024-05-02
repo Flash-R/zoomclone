@@ -4,14 +4,55 @@ import React, { useState } from 'react'
 import HomeCard from './HomeCard'
 import { useRouter } from 'next/navigation';
 import MeetingModal from './MeetingModal';
+import { useUser } from '@clerk/nextjs';
+import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk';
 
 function MeetingTypeList() {
     const router = useRouter();
     const [MeetingState, setMeetingState] = useState<'isScheduleMetting' | 'isJoiningMetting' | 'isInstantMetting' | 'undefined'>();
+    const [values, setValues] = useState({
+        dateTime: new Date(),
+        description: "",
+        link: ""
+    });
+    const [callDetails, setCallDetails] = useState<Call>()
+    // getting the logged in user
+    const user = useUser();
 
+    // initialise Strema video client
+    const client = useStreamVideoClient()
 
     // Model Functions 
-    const createMeeting = () =>{
+    const createMeeting = async () =>{
+        if(!client || !user) return;
+
+        try {
+            const id = crypto.randomUUID(); //generating random ids
+            const call = client.call('default', id);
+
+            if(!call) throw new Error("Call not created");  
+
+            const startsAt =  values.dateTime.toISOString() || 
+            new Date(Date.now()).toISOString();
+            const description = values.description || "Create Instant Meeting";	
+
+            await call.getOrCreate({
+                data: {
+                    starts_at: startsAt,
+                    custom: {
+                        description
+                    }
+                }
+            })
+
+            setCallDetails(call);
+
+            if(!values.description){
+                router.push(`/meeting/${call.id}`)
+            }
+        } catch(error) {
+            console.log(error)
+        }
 
     }
     return (
