@@ -73,7 +73,7 @@ function CallList({type}: {type: 'ended' | 'upcoming' | 'recordings'}) {
                     ? '/icons/upcoming.svg'
                     : '/icons/recordings.svg'
                 }
-                title ={(meeting as Call).state?.custom.description ||meeting.filename.substring(0, 20) || "No Description"}
+                title ={(meeting as Call).state?.custom?.description ||meeting?.filename.substring(0, 20) || "Personal Meeting"}
                 date ={meeting.state?.startsAt.toLocaleString() || (meeting as CallRecording).start_time?.toLocaleString()}
                 isPreviousMeeting ={
                     type === 'ended'

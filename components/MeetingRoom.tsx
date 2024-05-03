@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { LayoutList, User } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import EndCallButton from './EndCallButton';
 import Loader from './Loader';
 
@@ -24,6 +24,7 @@ function MeetingRoom() {
   const searchParams = useSearchParams();
   const isPersonalRoom = !!searchParams.get('personal');
 
+  const router = useRouter();
 
   const {useCallCallingState} = useCallStateHooks();
   const callingState = useCallCallingState();
@@ -58,7 +59,7 @@ function MeetingRoom() {
         </div>
       </div>
       <div className='fixed bottom-0 flex w-full items-center justify-center flex-wrap gap-5'>
-        <CallControls />
+        <CallControls onLeave={()=> router.push('/')}/>
         <DropdownMenu >
           <div className='flex items-center'>
             <DropdownMenuTrigger className='rounded-2xl cursor-pointer bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]'>
@@ -87,18 +88,6 @@ function MeetingRoom() {
                 >
                   speaker-right
                 </DropdownMenuItem>
-            {/* {['grid', 'speaker-left', 'speaker-right'].map((item, index) => {
-              <div key={index}>
-                <DropdownMenuItem className='cursor-pointer'
-                  onClick={() => {
-                    setLayout(item.toLowerCase() as CallLayoutType)
-                  }}
-                >
-                  {item}
-                </DropdownMenuItem>
-                <DropdownMenuSeparator className='border-dark-1'/>
-              </div>
-            })} */}
           </DropdownMenuContent>
         </DropdownMenu>
         <CallStatsButton/>
