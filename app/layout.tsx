@@ -11,6 +11,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "YM App",
   description: "Covering all your needs",
+  icons: {
+    icon : '/icons/logo.svg'
+  }
 };
 
 export default function RootLayout({

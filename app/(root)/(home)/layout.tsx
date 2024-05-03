@@ -1,6 +1,15 @@
 import Navbar from '@/components/Navbar'
 import Sidebar from '@/components/Sidebar'
+import { Metadata } from 'next';
 import React, {ReactNode} from 'react'
+
+export const metadata: Metadata = {
+  title: "YM App",
+  description: "Covering all your needs",
+  icons: {
+    icon : '/icons/logo.svg'
+  }
+};
 
 function HomeLayout({children}: {children: ReactNode}) {
   return (
